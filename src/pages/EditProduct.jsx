@@ -7,31 +7,53 @@ const EditProduct = () => {
 
   const loadData = useLoaderData()
   console.log(loadData.title)
-  const handleSubmit = async (e) => {
+  
+    const idLoad = loadData.id;
+    const titleLoad = loadData.title;
+    const brandLoad = loadData.brand;
+    const priceLoad = loadData.price;
+    const descriptionLoad = loadData.description;
+    const image_urlLoad = loadData.image_url;
+
+
+  const handleEdit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const id = form.id.value;
+    const sid = form.sid.value;
     const title = form.title.value;
     const brand = form.brand.value;
     const price = form.price.value;
     const description = form.description.value;
     const image_url = form.image_url.value;
 
-    const data = { id, title, brand, price, description, image_url };
-    console.log(data);
+    const upData = { sid, title, brand, price, description, image_url };
+
+    console.log(upData, "kahini")
+
+    await fetch(`http://localhost:3000/shoes/${idLoad}`,{
+      method:"PATCH",
+      headers:{
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(upData),
+    })
+    .then((res)=> res.json())
+    .then((data)=> console.log(data))
+
   };
 
   return (
     <div>
       <h1 className="text-center text-5xl">Edit products</h1>
       <div className="my-16"></div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleEdit}>
         <div className="mt-2">
           <input
             className="bg-gray-200 p-4 w-full border-black rounded-lg"
             type="text"
             name="title"
             placeholder="Title"
+            defaultValue={titleLoad}
           />
         </div>
         <div className="mt-2">
@@ -40,6 +62,7 @@ const EditProduct = () => {
             type="text"
             name="brand"
             placeholder="Brand"
+            defaultValue={brandLoad}
           />
         </div>
         <div className="mt-2">
@@ -48,6 +71,7 @@ const EditProduct = () => {
             type="number"
             name="price"
             placeholder="price"
+            defaultValue={priceLoad}
           />
         </div>
         <div className="mt-2">
@@ -56,6 +80,7 @@ const EditProduct = () => {
             type="text"
             name="description"
             placeholder="Description"
+            defaultValue={descriptionLoad}
           />
         </div>
         <div className="mt-2">
@@ -64,21 +89,23 @@ const EditProduct = () => {
             type="text"
             name="image_url"
             placeholder="Image URL"
+            defaultValue={image_urlLoad}
           />
         </div>
         <div className="mt-2">
           <input
             className="bg-gray-200 p-4 w-full border-black rounded-lg"
             type="text"
-            name="id"
+            name="sid"
             placeholder="ID"
+            defaultValue={idLoad}
           />
         </div>
         <div className="mt-2">
           <input
             className=" btn mt-4 w-full "
             type="submit"
-            value="Add Product"
+            value="Update Product"
           />
         </div>
       </form>

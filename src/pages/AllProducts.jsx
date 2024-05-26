@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import SingleProdutcCardDashboard from "../components/dashboard/SingleProdutcCardDashboard";
+import { ToastContainer, toast } from "react-toastify";
 
 const AllProducts = () => {
+
+  const notify = () => toast("Wow so easy!");
+
+  
+        <ToastContainer />
+      
+
+
+  
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -12,9 +22,11 @@ const AllProducts = () => {
 
   const handleDeleteProducts = (id) => {
     setProducts(products.filter((product) => product.id !== id));
+    notify()
   };
   return (
     <div>
+     
       <h1 className="text-5xl font-bold text-center">
         {" "}
         All Products{" "}

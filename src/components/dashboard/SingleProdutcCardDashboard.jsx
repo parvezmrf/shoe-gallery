@@ -2,19 +2,26 @@ import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const SingleProdutcCardDashboard = ({ shoe, onDelete }) => {
+
   const { id, title, brand, price } = shoe;
+  
+
 
   const handleDlete = async () => {
-    await fetch(`http://localhost:3000/shoes/${id}`, {
+
+    if (confirm("Are you sure to delete")) {
+      await fetch(`http://localhost:3000/shoes/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
     onDelete(id);
+    
+    }      
+   
   };
 
   return (
-   
     <tr>
       <th>{id} </th>
       <td>{title}</td>
