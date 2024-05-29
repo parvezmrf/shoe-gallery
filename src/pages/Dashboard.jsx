@@ -2,7 +2,8 @@
 const Dashboard = () => {
     return (
         <div>
-            This is dashboard.
+           Welcome to Product management page.
+           
         </div>
     );
 };

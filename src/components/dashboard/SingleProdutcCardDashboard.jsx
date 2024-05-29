@@ -1,24 +1,18 @@
 import { Link } from "react-router-dom";
-
 /* eslint-disable react/prop-types */
-const SingleProdutcCardDashboard = ({ shoe, onDelete }) => {
-
+const SingleProdutcCardDashboard = ({ shoe, onDelete, tst }) => {
   const { id, title, brand, price } = shoe;
-  
-
 
   const handleDlete = async () => {
-
     if (confirm("Are you sure to delete")) {
       await fetch(`http://localhost:3000/shoes/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-    onDelete(id);
-    
-    }      
-   
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+      onDelete(id);
+      tst();
+    }
   };
 
   return (
@@ -40,6 +34,7 @@ const SingleProdutcCardDashboard = ({ shoe, onDelete }) => {
           <Link to={`/products/${id}`}>Details</Link>
         </button>
       </td>
+
     </tr>
   );
 };

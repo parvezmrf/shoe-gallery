@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import SingleProdutcCardDashboard from "../components/dashboard/SingleProdutcCardDashboard";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AllProducts = () => {
+  function tst() {
+    toast.success("successfully deleted");
+  }
 
-  const notify = () => toast("Wow so easy!");
-
-  
-        <ToastContainer />
-      
-
-
-  
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -22,25 +18,21 @@ const AllProducts = () => {
 
   const handleDeleteProducts = (id) => {
     setProducts(products.filter((product) => product.id !== id));
-    notify()
   };
   return (
     <div>
-     
+
+      <ToastContainer autoClose={1000} hideProgressBar={true} theme="colored" />
       <h1 className="text-5xl font-bold text-center">
-        {" "}
-        All Products{" "}
-        <p className="text-xl">
-          {" "}
-          You have total {products.length} products.
-        </p>{" "}
+        All Products
+        <p className="text-xl">You have total {products.length} products.</p>
       </h1>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th>Product Id</th>
               <th>Product Name</th>
               <th>Brand</th>
               <th>Price</th>
@@ -54,6 +46,7 @@ const AllProducts = () => {
                 key={shoe.id}
                 shoe={shoe}
                 onDelete={handleDeleteProducts}
+                tst={tst}
               />
             ))}
           </tbody>

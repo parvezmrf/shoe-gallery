@@ -1,20 +1,17 @@
 import { useLoaderData } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProduct = () => {
+  const loadData = useLoaderData();
+  console.log(loadData.title);
 
-
-
-
-  const loadData = useLoaderData()
-  console.log(loadData.title)
-  
-    const idLoad = loadData.id;
-    const titleLoad = loadData.title;
-    const brandLoad = loadData.brand;
-    const priceLoad = loadData.price;
-    const descriptionLoad = loadData.description;
-    const image_urlLoad = loadData.image_url;
-
+  const idLoad = loadData.id;
+  const titleLoad = loadData.title;
+  const brandLoad = loadData.brand;
+  const priceLoad = loadData.price;
+  const descriptionLoad = loadData.description;
+  const image_urlLoad = loadData.image_url;
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -28,28 +25,41 @@ const EditProduct = () => {
 
     const upData = { sid, title, brand, price, description, image_url };
 
-    console.log(upData, "kahini")
-
-    await fetch(`http://localhost:3000/shoes/${idLoad}`,{
-      method:"PATCH",
-      headers:{
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(upData),
-    })
-    .then((res)=> res.json())
-    .then((data)=> console.log(data))
-
+    if (confirm("Check your data again?")) {
+      await fetch(`http://localhost:3000/shoes/${idLoad}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(upData),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+      toast("Produtc data updated!");
+    }
   };
 
   return (
-    <div>
-      <h1 className="text-center text-5xl">Edit products</h1>
-      <div className="my-16"></div>
-      <form onSubmit={handleEdit}>
+    <div >
+      <ToastContainer />
+
+
+
+
+      {/* You can open the modal using document.getElementById('ID').showModal() method */}
+
+  <div className="modal-box w-11/12 max-w-5xl">
+   
+  <h1 className="text-center text-5xl">Edit products</h1>
+
+ 
+  </div>
+
+
+      <form onSubmit={handleEdit} className=" modal-box w-11/12 max-w-5xl" >
         <div className="mt-2">
           <input
-            className="bg-gray-200 p-4 w-full border-black rounded-lg"
+            className="bg-gray-200 p-4 w-full border-black rounded-lg text-xl"
             type="text"
             name="title"
             placeholder="Title"
@@ -58,7 +68,7 @@ const EditProduct = () => {
         </div>
         <div className="mt-2">
           <input
-            className="bg-gray-200 p-4 w-full border-black rounded-lg"
+            className="bg-gray-200 p-4 w-full border-black rounded-lg text-xl"
             type="text"
             name="brand"
             placeholder="Brand"
@@ -67,7 +77,7 @@ const EditProduct = () => {
         </div>
         <div className="mt-2">
           <input
-            className="bg-gray-200 p-4 w-full border-black rounded-lg"
+            className="bg-gray-200 p-4 w-full border-black rounded-lg text-xl"
             type="number"
             name="price"
             placeholder="price"
@@ -76,7 +86,7 @@ const EditProduct = () => {
         </div>
         <div className="mt-2">
           <input
-            className="bg-gray-200 p-4 w-full border-black rounded-lg"
+            className="bg-gray-200 p-4 w-full border-black rounded-lg text-xl"
             type="text"
             name="description"
             placeholder="Description"
@@ -85,7 +95,7 @@ const EditProduct = () => {
         </div>
         <div className="mt-2">
           <input
-            className="bg-gray-200 p-4 w-full border-black rounded-lg"
+            className="bg-gray-200 p-4 w-full border-black rounded-lg text-xl"
             type="text"
             name="image_url"
             placeholder="Image URL"
@@ -94,7 +104,7 @@ const EditProduct = () => {
         </div>
         <div className="mt-2">
           <input
-            className="bg-gray-200 p-4 w-full border-black rounded-lg"
+            className="bg-gray-200 p-4 w-full border-black rounded-lg text-xl"
             type="text"
             name="sid"
             placeholder="ID"
